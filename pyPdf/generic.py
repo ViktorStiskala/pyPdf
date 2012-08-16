@@ -529,9 +529,7 @@ class DictionaryObject(dict, PdfObject):
             tok = readNonWhitespace(stream)
             stream.seek(-1, 1)
             value = readObject(stream, pdf)
-            if data.has_key(key):
-                # multiple definitions of key not permitted
-                raise utils.PdfReadError, "multiple definitions in dictionary"
+            # use the last key in case of multiple definitions
             data[key] = value
         pos = stream.tell()
         s = readNonWhitespace(stream)
